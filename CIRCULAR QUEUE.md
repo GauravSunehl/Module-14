@@ -1,62 +1,76 @@
-# Exp.No:14a  
-## APPLICATIONS OF QUEUE
-
+# Exp No: 14b  
+## Circular Queue 
 ---
 
 ### AIM  
-To write a Python program to implement CPU Process Scheduling using a queue.
+To write a Python program with a function to insert float values into a Circular Queue.
 
 ---
 
-### ALGORITHM  
+### ALGORITHM
 
-1. Start the program.  
-2. Define the function `CalculateWaitingTime(at, bt, N)`.  
-3. Initialize a list `wt` of size `N` with all values set to 0.  
-4. Set `wt[0] = 0` for the first process.  
-5. Print the table header: "P.No.", "Arrival Time", "Burst Time", "Waiting Time".  
-6. Print the values for the first process.  
-7. For each process from index `1` to `N-1`:  
-   - Calculate `wt[i] = (at[i - 1] + bt[i - 1] + wt[i - 1]) - at[i]`.  
-   - Print the process number, arrival time, burst time, and waiting time.  
-8. Initialize `total_waiting_time = 0`.  
-9. Add up all waiting times.  
-10. Calculate average waiting time as `average = total_waiting_time / N`.  
-11. Print the average waiting time.  
-12. Get burst times as input from the user for 5 processes.  
-13. Call `CalculateWaitingTime()` with `at`, `bt`, and `N`.  
-14. End the program.
+1. Start  
+2. Check if the Circular Queue is full  
+   - If `size == max_size`, print `"Queue is full"` and exit the function  
+3. If the queue is not full:  
+   - Read the element to be inserted  
+   - Convert it to float  
+   - Insert the element at the `tail` position  
+   - Update tail using: `tail = (tail + 1) % max_size` (circular increment)  
+   - Increment `size` by 1  
+4. End
 
 ---
 
-### PROGRAM  
+### PROGRAM
 
-```python
-def Calculatewaitingtime(at,bt,N): 
-    wt=[0]*N 
-    wt[0]=0 
-    print("P.No.\tArrival Time\t","Burst Time\tWaiting Time")
-    print("1","\t\t",at[0],"\t\t",bt[0],"\t\t",wt[0])
-    for i in range(1,5): 
-        wt[i]=(at[i-1]+bt[i-1]+wt[i-1])-at[i]
-        print(i+1,"\t\t",at[i],"\t\t",bt[i],"\t\t",wt[i])
-    average=0.0 
-    sum=0 
-    for i in range(5): 
-        sum+=wt[i]
-    average=sum/5
-    print("Average waiting time = ",average)
-N=5 
-at=[0,1,2,3,4]
-bt=[]
-for i in range(0,5): 
-    ele=int(input())
-    bt.append(ele)
-Calculatewaitingtime(at,bt,N)
+```
+
+class Queue:
+    def __init__(self,limit):
+        self.queue=[]
+        self.rear=0
+        self.front=0
+        self.limit=limit
+    def isempty(self):
+        if len(self.queue)==0:
+            return True
+        else:
+            return False
+    def enqueue(self,item):
+        if len(self.queue)==self.limit:
+            print("The queue is full")
+        else:
+            if self.front==self.limit:
+                self.front=self.rear-1
+            self.queue.insert(self.front,item)
+            self.front+=1
+    def dequeue(self):
+        if self.rear==self.limit:
+            self.rear=0
+        self.queue.pop(self.rear)
+        self.rear+=1
+    def display(self):
+        print(self.queue)
+size=int(input())
+a=Queue(size)
+str=int(input())
+str1=int(input())
+str2=int(input())
+a.enqueue(str)
+a.enqueue(str1)
+a.enqueue(str2)
+a.display()
+a.dequeue()
+a.display()
+
+
+
 ```
 
 ### OUTPUT
-<img width="1187" height="526" alt="image" src="https://github.com/user-attachments/assets/89e22be2-f1f6-404b-a44f-0122ee909ba4" />
+
+<img width="820" height="329" alt="image" src="https://github.com/user-attachments/assets/f9d60abf-00e4-42de-b2c2-5f3f9dd2ed56" />
 
 ### RESULT
-Therefore, the output is the example to write a Python program to implement CPU Process Scheduling using a queue.
+Thus the Circular Queue is implemented and verified successfully.
